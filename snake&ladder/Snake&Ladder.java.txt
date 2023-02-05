@@ -1,0 +1,76 @@
+import java.util.Random;
+
+public class Main {
+    public static final int WIN_POSITION = 100;
+    public static final int MIN_POSITION = 0;
+    public static final int SNAKE = -1;
+    public static final int LADDER = 1;
+
+    public static void main(String[] args) {
+        int[] board = new int[WIN_POSITION + 1];
+        initializeBoard(board);
+
+        int currentPlayer = 1;
+        int position1 = 0, position2 = 0;
+        Random dice = new Random();
+
+        while (position1 < WIN_POSITION && position2 < WIN_POSITION) {
+            int diceValue = dice.nextInt(6) + 1;
+
+            if (currentPlayer == 1) {
+                position1 += diceValue;
+                if (position1 > WIN_POSITION) {
+                    position1 = WIN_POSITION;
+                }
+                System.out.println("Player 1 rolls " + diceValue + " and moves to " + position1);
+                position1 = applyAction(board, position1);
+                currentPlayer = 2;
+            } else {
+                position2 += diceValue;
+                if (position2 > WIN_POSITION) {
+                    position2 = WIN_POSITION;
+                }
+                System.out.println("Player 2 rolls " + diceValue + " and moves to " + position2);
+                position2 = applyAction(board, position2);
+                currentPlayer = 1;
+            }
+        }
+
+        if (position1 == WIN_POSITION) {
+            System.out.println("Player 1 wins!");
+        } else {
+            System.out.println("Player 2 wins!");
+        }
+    }
+
+    private static int applyAction(int[] board, int position) {
+        int action = board[position];
+        if (action == SNAKE || action == LADDER) {
+            position += action;
+        }
+        return position;
+    }
+
+    private static void initializeBoard(int[] board) {
+        board[98] = -10;
+        board[95] = -5;
+        board[93] = -53;
+        board[87] = -20;
+        board[62] = -25;
+        board[49] = -62;
+        board[46] = -15;
+        board[16] =-10;
+        board[2] = 38;
+        board[7] = 14;
+        board[8] = 1;
+        board[15] = 26;  
+        board[21] = 42 ;
+        board[28] = 84 ;
+        board[36] = 44 ;
+        board[51] = 67 ;
+        board[71] = 91 ;
+        board[78] = 98;
+        board[87] = 94;
+        
+    }
+}
